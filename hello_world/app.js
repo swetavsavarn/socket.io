@@ -4,27 +4,30 @@ var io = require('socket.io')(http);
 
 app.get('/', function(req, res){
    res.sendFile('E:/socket.io/hello_world/index.html');});
-users = [];
-io.on('connection', function(socket){
+// users = [];
+// io.on('connection', function(socket){
    
-   socket.on('setUsername', function(data){
-      console.log(data);
-      if(users.indexOf(data) > -1){
-         socket.emit('userExists', data + ' username is taken!');
-      } else {
-         users.push(data);
-         socket.emit('userSet', {username: data});
-      }
-   });
-   socket.on('msg', function(data){
-      //Send message to everyone
-      io.sockets.emit('newmsg', data);
-   })
-});
+//    socket.on('setUsername', function(data){
+//       console.log(data);
+//       if(users.indexOf(data) > -1){
+//          socket.emit('userExists', data + ' username is taken!');
+//       } else {
+//          users.push(data);
+//          socket.emit('userSet', {username: data});
+//       }
+//    });
+//    socket.on('msg', function(data){
+//       //Send message to everyone
+//       io.sockets.emit('newmsg', data);
+//    })
+// });
 app.get('/joinroom',(req,res)=>{
-   users = [];
+   
    res.sendFile('E:/socket.io/hello_world/room.html')
-   io.on("connection", socket => {
+   
+    });
+    users = [];
+    io.on("connection", socket => {
       // socket.join("some room");
       socket.on('joinroom',(data)=>{
          console.log(data)
@@ -51,7 +54,6 @@ app.get('/joinroom',(req,res)=>{
          
 
       })
-    });
 
 
 })
