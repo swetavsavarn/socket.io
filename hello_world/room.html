@@ -1,7 +1,8 @@
 <html>
     <body>
         <div id="error-container"></div>
-        
+        <li id="global">No of global user</li>
+        _
         <form>
             <input type="text" id="username" placeholder="enter user name">
             <input type="text" id="roomname" placeholder="enter room name">
@@ -12,6 +13,15 @@
         <script src="/socket.io/socket.io.js"></script>
         <script>
             var socket = io();
+            let ul=document.createElement('ul')
+            socket.on('no',(data)=>{
+              let global= document.getElementById('global')
+              
+              ul.innerText=data
+              global.appendChild(ul)
+               
+            })
+            
            document.getElementById('submit').addEventListener('click',(e)=>{
             e.preventDefault()
             var obj={

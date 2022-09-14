@@ -27,10 +27,14 @@ app.get('/joinroom',(req,res)=>{
    
     });
     users = [];
+    let user_count=0
     io.on("connection", socket => {
       // socket.join("some room");
+      user_count++
+      io.emit('no',user_count)
+     
       socket.on('joinroom',(data)=>{
-         console.log(data)
+         // console.log(data)
          if(users.indexOf(data.username) > -1){
 
             socket.emit('userExists', data.username + ' username is taken!');
@@ -51,9 +55,16 @@ app.get('/joinroom',(req,res)=>{
                })
              
          }
-         
+      
 
       })
+      socket.on('disconnect', function () {
+         // console.log("user disco")
+         user_count--
+         io.emit('no',user_count)
+         
+      });
+      
 
 
 })
